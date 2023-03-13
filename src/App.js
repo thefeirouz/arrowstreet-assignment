@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import './App.css';
+import { RegistrationForm } from './registration/RegistrationForm';
+import { RegisteredStudentsTable } from './registration/RegisteredStudentsTable';
+import { useEffect, useState } from 'react';
+import { getRegisteredStudents } from './apis/registrationApis';
+
+
 
 function App() {
+  const [registeredStudents, setRegisteredStudents] = useState([]);
+  const onAdd = (student) => setRegisteredStudents((prevRegistered) => {
+    const newState = [...prevRegistered];
+    newState.push(student)
+    return newState;
+  })
+  useEffect(() => {
+    getRegisteredStudents().then(resp => setRegisteredStudents(resp))
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en">
+    <div>
+      <RegistrationForm onAdd={onAdd}/>
+      <RegisteredStudentsTable students={registeredStudents} />
     </div>
+    </LocalizationProvider>
   );
 }
 

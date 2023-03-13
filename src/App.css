@@ -28,6 +28,30 @@
   color: #61dafb;
 }
 
+.registration-input-div {
+  padding-bottom: 24px;
+
+}
+
+.registration-field {
+  width: 240px;
+}
+
+.registered-students-table {
+  padding-top: 200px;
+  border-top: 1px solid black;
+  max-width: 800px;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: center;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
